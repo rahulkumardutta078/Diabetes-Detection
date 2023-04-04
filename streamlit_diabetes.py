@@ -4,14 +4,17 @@ import pandas as pd
 import pickle
 diabetes_predictor_model=pickle.load(open('diabetes_predictor.pickle','rb'))
 
-def predict(Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age):
-    prediction=diabetes_predictor_model.predict([[Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age]])
-
-    if prediction==0:
+def predict(input_data):
+    input_data_as_numpy_array = np.asarray(input_data)
+    input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+    
+    prediction=diabetes_predictor_model.predict(input_data_reshaped)
+    
+    if prediction[0]==0:
         result_var="not suffering from diabetes"
         return result_var
         
-    elif prediction==1:
+    else:
         result_var="suffering from diabetes"
         return result_var
 
@@ -31,7 +34,7 @@ def main():
 
     result=""
     if st.button("Predict"):
-        result=predict(Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age)
+        result=predict([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
 
         st.success("You are {}".format(result))
         
