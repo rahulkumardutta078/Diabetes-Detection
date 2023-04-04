@@ -34,6 +34,8 @@ def main():
         result=predict(Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age)
 
         st.success("You are {}".format(result))
+        
+        st.write("Click This [ To book doctor appointment online](https://www.practo.com/doctors)")
 
 if __name__=='__main__':
     main()
