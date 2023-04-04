@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
-diabetes_predictor_model=pickle.load(open('diabetes_predictor.pickle','rb'))
+diabetes_predictor_model=pickle.load(open('diabetes_predictor.sav','rb'))
 
 def predict(input_data):
     input_data_as_numpy_array = np.asarray(input_data)
@@ -11,12 +11,12 @@ def predict(input_data):
     prediction=diabetes_predictor_model.predict(input_data_reshaped)
     
     if prediction[0]==0:
-        result_var="not suffering from diabetes"
-        return result_var
+        
+        return "You are not suffering from diabetes"
         
     else:
-        result_var="suffering from diabetes"
-        return result_var
+        
+        return "You are suffering from diabetes"
 
 
 
@@ -36,7 +36,7 @@ def main():
     if st.button("Predict"):
         result=predict([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
 
-        st.success("You are {}".format(result))
+        st.success(result)
         
         st.write("Click This [ To book doctor appointment online](https://www.practo.com/doctors)")
 
